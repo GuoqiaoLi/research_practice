@@ -34,31 +34,31 @@ git_manager.find_projects()
 
 
 
-# project_names = []
-# project_tests_without_ekstazi = []
-# project_tests_with_ekstazi = []
+project_names = []
+project_tests_without_ekstazi = []
+project_tests_with_ekstazi = []
 
 
-# # get results for each project
-# for project in listdir("./"):
-# 	git_manager.set_project_name(project)
-# 	(project_name, tests_without_ekstazi, tests_with_ekstazi) = git_manager.set_up()
-# 	project_names.append(project_name)
-# 	project_tests_without_ekstazi.append(tests_without_ekstazi)
-# 	project_tests_with_ekstazi.append(tests_with_ekstazi)
+# get results for each project
+for project in listdir("./"):
+	git_manager.set_project_name(project)
+	(project_name, tests_without_ekstazi, tests_with_ekstazi) = git_manager.set_up()
+	project_names.append(project_name)
+	project_tests_without_ekstazi.append(tests_without_ekstazi)
+	project_tests_with_ekstazi.append(tests_with_ekstazi)
 
-# # print the result
-# print "Results: "
-# print "-" * 106
-# for i in range(len(project_names)):
-# 	project_name = project_names[i]
-# 	tests_without_ekstazi = project_tests_without_ekstazi[i]
-# 	tests_with_ekstazi = project_tests_with_ekstazi[i]
-# 	col_length = cal_col_length(project_name, tests_without_ekstazi, tests_with_ekstazi)
+# print the result
+print "Results: "
+print "-" * 106
+for i in range(len(project_names)):
+	project_name = project_names[i]
+	tests_without_ekstazi = project_tests_without_ekstazi[i]
+	tests_with_ekstazi = project_tests_with_ekstazi[i]
+	col_length = cal_col_length(project_name, tests_without_ekstazi, tests_with_ekstazi)
 
-# 	output = " " + project_name + ' ' * col_length[0]
-# 	for j in range(len(tests_without_ekstazi)):
-# 		output += " " + tests_without_ekstazi[j] + "/" + tests_with_ekstazi[j] + " " * col_length[j+1]
-# 	print output
-# print "-" * 106
+	output = " " + project_name + ' ' * col_length[0]
+	for j in range(len(tests_without_ekstazi)):
+		output += " " + tests_without_ekstazi[j] + "/" + tests_with_ekstazi[j] + " " * col_length[j+1]
+	print output
+print "-" * 106
 
