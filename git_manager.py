@@ -77,6 +77,7 @@ class GitManager:
 		tag_if_compile = True
 		tag_if_has_tests = False
 		tag_if_has_errors = False
+		tag_less_than_thirty_revisions = False
 
 		# run mvn test
 		terminal_log = os.popen('mvn test').readlines()
@@ -88,8 +89,13 @@ class GitManager:
 			if "Error:" in line:
 				tag_if_has_errors = True
 
+		number_of_revisions = os.popen("git rev-list --all").readlines()
+		if len(number_of_revisions) < 30:
+			tag_less_than_thirty_revisions = True
 
-		return tag_if_compile and tag_if_has_tests
+
+
+		return tag_if_compile and tag_if_has_tests and not tag_if_has_errors and not tag_less_than_thirty_revisions
 
 	'''
 	get ten revisions for the project
@@ -149,15 +155,20 @@ class GitManager:
 			#run without ekstazi
 			print "\n##########################"
 			print "Run tests without ekstazi"
+			no_test_selected_tag = True
 			for line in os.popen("mvn test").readlines():
 				if "Results" in line:
 					flag = True
 				if "Tests run" in line and flag:
+					no_test_selected_tag = False
 					#parse the line and get the number
 					parsed_line = line.rstrip().split(",")
 					tests_without_ekstazi.append(parsed_line[0][11:])
 					flag = False
 					break
+			if no_test_selected_tag:
+				tests_with_ekstazi.append("0")
+
 
 			# run with ekstazi
 			print "\n##########################"
