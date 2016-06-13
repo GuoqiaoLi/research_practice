@@ -57,7 +57,8 @@ class GitManager:
 			print project_name + " is an INVALID project"
 			print "==================================\n"	
 			os.chdir("..")
-			os.system("rm -rf " + project_name) 	
+			os.system("rm -rf " + project_name) 
+
 
 
 	'''
@@ -75,6 +76,7 @@ class GitManager:
 	def check_if_valid(self, project_name):
 		tag_if_compile = True
 		tag_if_has_tests = False
+		tag_if_has_errors = False
 
 		# run mvn test
 		terminal_log = os.popen('mvn test').readlines()
@@ -83,6 +85,8 @@ class GitManager:
 				tag_if_compile = False
 			if "Tests run" in line:
 				tag_if_has_tests = True
+			if "Error:" in line:
+				tag_if_has_errors = True
 
 
 		return tag_if_compile and tag_if_has_tests
@@ -97,6 +101,15 @@ class GitManager:
 		while i >= 0:
 			ten_latest_revisions.append(logs[i].rstrip())
 			i -= 3
+
+		
+		#write SHAs to SHAs.txt
+		SHAs = open("SHAs.txt", "w")
+		ten_SHAs = ""
+		for revision in ten_latest_revisions:
+			ten_SHAs += revision + "\n"
+		SHAs.write(ten_SHAs)
+
 
 		return ten_latest_revisions
 
