@@ -38,8 +38,6 @@ project_names = []
 project_tests_without_ekstazi = []
 project_tests_with_ekstazi = []
 
-os.chdir("git_projects")
-
 # get results for each project
 for project in listdir("./"):
 	git_manager.set_project_name(project)
