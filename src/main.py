@@ -9,12 +9,6 @@ calculate the col length in order to print
 '''
 def cal_col_length(project_name, tests_without_ekstazi, tests_with_ekstazi):
 	col_length = []
-
-	# first calculate first col
-	# if len(project_name) > 21:
-	# 	project_name = project_name[0:16] + "..."
-	# 	print project_name
-
 	col_length.append(30 - len(project_name))
 
 	# then calculate the rest
@@ -33,7 +27,7 @@ if not os.path.exists("git_projects"):
 
 # clone five projects
 git_manager = GitManager()
-# git_manager.find_projects()
+git_manager.find_projects()
 
 projects_without_ekstazi = dict()
 projects_with_ekstazi = dict()
